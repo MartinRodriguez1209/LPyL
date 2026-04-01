@@ -1,0 +1,16 @@
+table,
+th,
+td {
+    border: 1px solid red;
+}
+
+img {
+    height: 300px;
+    width: 500px;
+}
+
+table {
+    margin-left: 20%;
+    justify-content: center;
+    width: 50%;
+}
