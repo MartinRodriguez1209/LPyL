@@ -1,0 +1,16 @@
+1. Si es necesario un directorio raiz, es la carpeta base en la que se encuentran todos los archivos necesarios
+
+2. Las paginas web estan en un servidor y el cliente las solicita a travez de una peticion mediante un navegador
+y el servidor se las envia al cliente, el usuario escribe la url del sitio, mediante un dns se encuentra la 
+direccion ip del servidor y se realiza la peticion de la pagina
+si la pagina es estatica solo se transfiere html
+si la pagina es dinamica se transfiere html y javascript
+
+3. tienen ventajas respecto a la facilidad del mantenimiento y la actualizacion con respeto a las aplicaciones
+de escritorio, no es necesario distribuir e instalar software en los dispositivos de todos los usuarios 
+
+4. Puede ser accedidas mediante un navegador
+   Se codifican en lenguajes soportados por los navegadores
+   son accesibles por usuarios de todo el mundo mediante distintos dispositivos
+
+

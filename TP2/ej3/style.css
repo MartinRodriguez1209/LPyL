@@ -1,0 +1,29 @@
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-size: 50px;
+}
+body {
+  background-color: blueviolet;
+  font-family: Arial, Helvetica, sans-serif;
+  color: beige;
+}
+.cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid red;
+}
+
+p {
+  justify-content: center;
+  align-items: center;
+  padding-left: 7%;
+  padding-right: 7%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+}
