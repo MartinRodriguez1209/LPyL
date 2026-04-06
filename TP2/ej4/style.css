@@ -1,16 +1,90 @@
-table,
-th,
-td {
-    border: 1px solid red;
+body {
+  background-color: bisque;
+}
+
+table td,
+table th,
+table {
+  border: 7px solid navy;
+  text-align: center;
+  vertical-align: middle;
 }
 
 img {
-    height: 300px;
-    width: 500px;
+  height: 350px;
+  width: auto;
 }
 
 table {
-    margin-left: 20%;
-    justify-content: center;
-    width: 50%;
+  margin: 0 auto;
+  width: 50%;
+  border-collapse: collapse;
+}
+
+h1 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 5em;
+  margin-top: 0%;
+  color: black;
+}
+
+.nombre_gatas {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.descripcion_gata {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2.5em;
+  font-weight: 400;
+}
+td {
+  padding-top: 10px;
+}
+
+th {
+  background-color: chocolate;
+}
+th p {
+  font-family: "Times New Roman", Times, serif;
+  color: aliceblue;
+  font-size: 4em;
+  font-weight: bold;
+}
+
+video {
+  height: 60em;
+  width: auto;
+}
+
+.cont_vert {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-self: flex-start;
+  margin-left: 10%;
+  width: 25vw;
+}
+
+.cont_hor {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-self: flex-start;
+  margin-left: 10%;
+}
+
+h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 4em;
+  font-weight: bold;
+}
+
+.titulos {
+  font-family: "Matemasie", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 5em;
 }
