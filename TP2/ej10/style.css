@@ -1,0 +1,18 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: left;
+    padding-top: 2em;
+    padding-left: 2em;
+}
+
+.main_cont {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 80%;
+    border: 1px solid;
+    border-color: black;
+}
