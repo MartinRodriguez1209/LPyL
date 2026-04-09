@@ -1,19 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Buscador de arte</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Buscador de arte</h1>
     <h2>Ingrese los datos de la galeria</h2>
-    <div class="main_cont"></div>
-
-</body>
-
-
+    <form
+      id="idFormulario"
+      name="formulario"
+      action="busqueda.php"
+      method="get"
+    >
+      <div class="main_cont">
+        <div class="hor_cont">
+          <span
+            ><label for="idNombreAutor">Nombre del autor</label>
+            <input type="text" name="nombreAutor" id="idNombreAutor" />
+          </span>
+          <span
+            ><label for="idCorreoAutor">Correo electronico del autor</label>
+            <input type="text" name="correoAutor" id="idCorreoAutor" />
+          </span>
+        </div>
+        <div class="hor_cont">
+          <span
+            ><label for="idFechaDesde">Fecha de la foto</label>
+            <input type="date" name="fechaDesde" id="idFechaDesde" />
+            <input type="date" name="fechaHasta" id="idFechaHasta" />
+          </span>
+        </div>
+        <div class="hor_cont">
+          <span
+            ><label for="idArgentina">Pais de la foto</label>
+            <input type="checkbox" name="argentina" id="idArgentina" />Argentina
+            <input type="checkbox" name="chile" id="idChile" />Chile
+            <input type="checkbox" name="peru" id="idPeru" />Peru
+            <input type="checkbox" name="bolivia" id="idBolivia" />Bolivia
+          </span>
+        </div>
+        <div class="hor_cont">
+          <span
+            ><label for="idCantidadFotosSeleccionada">Cantidad de fotos</label>
+            <select
+              name="cantidadFotosSeleccionada"
+              id="idCantidadFotosSeleccionada"
+            >
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="45">45</option>
+            </select>
+          </span>
+        </div>
+        <div class="hor_cont">
+          <span
+            ><label for="idModoVisualizacion1">Modo de visualizacion</label>
+            <input
+              type="radio"
+              name="modoVisualizacion"
+              id="idModoVisualizacion1"
+            />
+            Lista
+            <input
+              type="radio"
+              name="modoVisualizacion"
+              id="idModoVisualizacion2"
+            />Cuadricula
+          </span>
+        </div>
+        <div class="hor_cont">
+          <input
+            type="submit"
+            class="input_button"
+            value="Enviar"
+            name="enviar"
+            id="idEnviar"
+          />
+        </div>
+      </div>
+    </form>
+  </body>
 </html>

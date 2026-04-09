@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Tabla de multiplicar</h1>
+
+    <form action="calcularTabla()" method="get">
+      <label for="">Ingrese el numero </label
+      ><input type="number" name="numero" id="idNumero" />
+      <input
+        type="button"
+        onclick="calcularTabla(document.getElementById('idNumero').value)"
+        value="Calcular tabla"
+      />
+    </form>
+  </body>
+</html>
