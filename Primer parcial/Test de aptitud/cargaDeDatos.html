@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="div_flex_center">
+      <h1>¡Test de Aptitud!</h1>
+      <h2>Ingreas tus datos:</h2>
+      <form action="" id="idFormularioDatosUsuario">
+        <div class="div_flex_center_horizontal">
+          <label for="idNombre">Nombre</label>
+          <input required type="text" name="nombre" id="idNombre" />
+        </div>
+        <div class="div_flex_center_horizontal">
+          <label for="idApellido">Apellido</label>
+          <input required type="text" name="apellido" id="idApellido" />
+        </div>
+        <div class="div_flex_center_horizontal">
+          <label for="idEdad">Edad</label>
+          <input required type="number" name="edad" id="idEdad" />
+        </div>
+        <button value="continuar" type="submit">Continuar</button>
+      </form>
+
+      <form action="" id="idFormulario" style="visibility: hidden">
+        <h2>Preguntas para postular:</h2>
+        <h3>1. ¿Qué ingredientes lleva un desayuno simple?</h3>
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idCafeote"
+            value="3"
+            data-porcentaje="0.3"
+          />Cafe o te</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idLeche"
+            value="2"
+            data-porcentaje="0.3"
+          />Leche</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idTostadas"
+            value="2"
+            data-porcentaje="0.3"
+          />Tostadas</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idLimon"
+            value="0"
+            data-porcentaje="0.3"
+          />Limon</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idManteca"
+            value="1"
+            data-porcentaje="0.3"
+          />Manteca</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idMedialunas"
+            value="2"
+            data-porcentaje="0.3"
+          />Medialunas</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta1"
+            id="idAjo"
+            value="-1"
+            data-porcentaje="0.3"
+          />Ajo</label
+        >
+
+        <h3>¿Qué fruta seca sale de la uva?</h3>
+        <label class="label_preguntas" for="">
+          <input
+            type="radio"
+            name="pregunta2"
+            id="idAnacarado"
+            value="0"
+            data-porcentaje="0.05"
+          />Anacarado</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="radio"
+            name="pregunta2"
+            id="idPasas"
+            value="10"
+            data-porcentaje="0.05"
+          />Pasas</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="radio"
+            name="pregunta2"
+            id="idCiruelas"
+            value="0"
+            data-porcentaje="0.05"
+          />Ciruelas</label
+        >
+        <h3>¿Para qué sirve el caldo corto?</h3>
+        <label class="label_preguntas" for="">
+          <input
+            type="radio"
+            name="pregunta3"
+            id="idPregunta3a"
+            value="10"
+            data-porcentaje="0.1"
+          />Para alimentos que necesitan poca cocción.
+        </label>
+        <label class="label_preguntas" for="">
+          <input
+            type="radio"
+            name="pregunta3"
+            id="idPregunta3b"
+            value="0"
+            data-porcentaje="0.1"
+          />Para quitar la grasa de la carne.
+        </label>
+        <h3>¿Cuál es la temperatura máxima para freír?</h3>
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta4"
+            id="idPregunta4op1"
+            value="8"
+            data-porcentaje="0.3"
+          />180</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta4"
+            id="idPregunta4op2"
+            value="0"
+            data-porcentaje="0.3"
+          />200</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta4"
+            id="idPregunta4op3"
+            value="2"
+            data-porcentaje="0.3"
+          />170</label
+        >
+        <h3>¿Cómo se llama el pan sin levadura?</h3>
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta5"
+            id="idPregunta5op1"
+            value="0"
+            data-porcentaje="0.25"
+          />Pan blanco</label
+        >
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta5"
+            id="idPregunta5op2"
+            value="2"
+            data-porcentaje="0.25"
+          />Pan germinado
+        </label>
+        <label class="label_preguntas" for="">
+          <input
+            type="checkbox"
+            name="pregunta5"
+            id="idPregunta5op3"
+            value="8"
+            data-porcentaje="0.25"
+          />Ácimo
+        </label>
+        <button value="enviar" type="submit">Enviar cuestionario</button>
+      </form>
+    </div>
+  </body>
+</html>

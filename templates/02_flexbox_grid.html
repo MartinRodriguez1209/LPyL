@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Template — Flexbox & Grid CSS</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: monospace; background: #0f0f0f; color: #e0e0e0; padding: 2rem; }
+    h1 { color: #ff6f00; border-bottom: 2px solid #ff6f00; padding-bottom: .5rem; margin-bottom: 2rem; }
+    h2 { color: #ffd600; margin: 2.5rem 0 1rem; }
+    h3 { color: #ff8a65; margin: 1.5rem 0 .5rem; font-size: .95rem; }
+    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .comment { color: #4caf50; font-size: .82rem; margin-bottom: .75rem; }
+    pre { background: #111; border: 1px solid #2a2a2a; border-radius: 6px; padding: 1rem; overflow-x: auto; font-size: .8rem; line-height: 1.7; margin-top: .75rem; }
+    .prop { color: #80cbc4; }
+    .val  { color: #ffcc80; }
+    .comment-c { color: #4caf50; }
+
+    /* ── DEMOS ── */
+    .demo { background: #111; border: 1px dashed #444; border-radius: 6px; padding: .75rem; margin: .75rem 0; }
+    .box {
+      background: #ff6f00; color: #000; font-weight: bold; font-size: .8rem;
+      padding: .5rem .75rem; border-radius: 4px; text-align: center;
+    }
+    .box:nth-child(2) { background: #ffd600; }
+    .box:nth-child(3) { background: #00e5ff; }
+    .box:nth-child(4) { background: #ce93d8; }
+    .box:nth-child(5) { background: #80cbc4; }
+
+    /* Flex demos */
+    .flex-row        { display: flex; gap: .5rem; }
+    .flex-col        { display: flex; flex-direction: column; gap: .5rem; }
+    .flex-wrap       { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .flex-center     { display: flex; justify-content: center; align-items: center; gap: .5rem; height: 80px; }
+    .flex-between    { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+    .flex-grow-demo  { display: flex; gap: .5rem; }
+    .flex-grow-demo .grow { flex-grow: 1; background: #00e5ff; color: #000; }
+
+    /* Grid demos */
+    .grid-3col       { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    .grid-asym       { display: grid; grid-template-columns: 2fr 1fr; gap: .5rem; }
+    .grid-auto       { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: .5rem; }
+    .grid-areas      {
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+      grid-template-columns: 120px 1fr;
+      gap: .5rem;
+    }
+    .area-header  { grid-area: header;  background: #ff6f00; color:#000; padding:.4rem; text-align:center; border-radius:4px; font-weight:bold; font-size:.8rem; }
+    .area-sidebar { grid-area: sidebar; background: #ffd600; color:#000; padding:.4rem; text-align:center; border-radius:4px; font-size:.8rem; }
+    .area-main    { grid-area: main;    background: #00e5ff; color:#000; padding:.4rem; text-align:center; border-radius:4px; font-size:.8rem; }
+    .area-footer  { grid-area: footer;  background: #ce93d8; color:#000; padding:.4rem; text-align:center; border-radius:4px; font-weight:bold; font-size:.8rem; }
+
+    /* Span */
+    .grid-span { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+    .span-2 { grid-column: span 2; background: #ff6f00; }
+    .span-all { grid-column: 1 / -1; background: #ffd600; color:#000; }
+  </style>
+</head>
+<body>
+
+<h1>📐 Template — Flexbox & Grid CSS</h1>
+
+<!-- ======================================================= -->
+<!--                        FLEXBOX                          -->
+<!-- ======================================================= -->
+<h2>⚡ FLEXBOX</h2>
+<p class="comment">/* Se aplica al contenedor padre. Los hijos se convierten en "flex items" */</p>
+
+<h3>Row (dirección por defecto)</h3>
+<div class="card">
+  <div class="demo flex-row">
+    <div class="box">A</div><div class="box">B</div><div class="box">C</div>
+  </div>
+  <pre><span class="prop">display</span>: <span class="val">flex</span>;                   <span class="comment-c">/* activa flexbox */</span>
+<span class="prop">flex-direction</span>: <span class="val">row</span>;           <span class="comment-c">/* fila (default) */</span>
+<span class="prop">gap</span>: <span class="val">0.5rem</span>;                  <span class="comment-c">/* espacio entre hijos */</span></pre>
+</div>
+
+<h3>Column</h3>
+<div class="card">
+  <div class="demo flex-col" style="width:120px">
+    <div class="box">A</div><div class="box">B</div><div class="box">C</div>
+  </div>
+  <pre><span class="prop">flex-direction</span>: <span class="val">column</span>;        <span class="comment-c">/* apila verticalmente */</span></pre>
+</div>
+
+<h3>justify-content (eje principal) & align-items (eje cruzado)</h3>
+<div class="card">
+  <div class="demo flex-center">
+    <div class="box">A</div><div class="box">B</div><div class="box">C</div>
+  </div>
+  <pre><span class="comment-c">/* justify-content → distribuye en el eje principal */</span>
+<span class="prop">justify-content</span>: <span class="val">flex-start</span>   <span class="comment-c">/* izquierda (default) */</span>
+                  <span class="val">flex-end</span>     <span class="comment-c">/* derecha */</span>
+                  <span class="val">center</span>       <span class="comment-c">/* centrado */</span>
+                  <span class="val">space-between</span> <span class="comment-c">/* espacio entre items */</span>
+                  <span class="val">space-around</span> <span class="comment-c">/* espacio alrededor */</span>
+                  <span class="val">space-evenly</span> <span class="comment-c">/* espacio uniforme */</span>
+
+<span class="comment-c">/* align-items → distribuye en el eje cruzado */</span>
+<span class="prop">align-items</span>: <span class="val">stretch</span>    <span class="comment-c">/* estira (default) */</span>
+              <span class="val">center</span>     <span class="comment-c">/* centra verticalmente */</span>
+              <span class="val">flex-start</span> <span class="comment-c">/* arriba */</span>
+              <span class="val">flex-end</span>   <span class="comment-c">/* abajo */</span>
+              <span class="val">baseline</span>   <span class="comment-c">/* alinea por texto */</span></pre>
+</div>
+
+<h3>space-between</h3>
+<div class="card">
+  <div class="demo flex-between">
+    <div class="box">Inicio</div><div class="box">Medio</div><div class="box">Fin</div>
+  </div>
+  <pre><span class="prop">justify-content</span>: <span class="val">space-between</span>;</pre>
+</div>
+
+<h3>flex-wrap</h3>
+<div class="card">
+  <div class="demo flex-wrap">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div>
+  </div>
+  <pre><span class="prop">flex-wrap</span>: <span class="val">wrap</span>;   <span class="comment-c">/* permite que los items pasen a la siguiente línea */</span>
+<span class="prop">flex-wrap</span>: <span class="val">nowrap</span>; <span class="comment-c">/* default: no rompe línea */</span></pre>
+</div>
+
+<h3>flex-grow / flex-shrink / flex-basis (propiedades del HIJO)</h3>
+<div class="card">
+  <div class="demo flex-grow-demo">
+    <div class="box">Fijo</div>
+    <div class="box grow">Crece (flex-grow:1)</div>
+    <div class="box">Fijo</div>
+  </div>
+  <pre><span class="comment-c">/* En el HIJO */</span>
+<span class="prop">flex-grow</span>: <span class="val">1</span>;        <span class="comment-c">/* ocupa el espacio disponible */</span>
+<span class="prop">flex-shrink</span>: <span class="val">0</span>;      <span class="comment-c">/* no se encoge (default: 1) */</span>
+<span class="prop">flex-basis</span>: <span class="val">200px</span>;   <span class="comment-c">/* tamaño base antes de crecer/encogerse */</span>
+
+<span class="comment-c">/* Shorthand */</span>
+<span class="prop">flex</span>: <span class="val">1</span>;              <span class="comment-c">/* flex-grow:1, shrink:1, basis:0 */</span>
+<span class="prop">flex</span>: <span class="val">0 0 200px</span>;     <span class="comment-c">/* no crece, no encoge, base 200px */</span>
+
+<span class="comment-c">/* align-self en el hijo (sobreescribe align-items del padre) */</span>
+<span class="prop">align-self</span>: <span class="val">center</span>;
+<span class="prop">order</span>: <span class="val">-1</span>;           <span class="comment-c">/* cambia el orden visual */</span></pre>
+</div>
+
+<!-- ======================================================= -->
+<!--                         GRID                            -->
+<!-- ======================================================= -->
+<h2>🔲 GRID</h2>
+<p class="comment">/* Grid es bidimensional: filas Y columnas al mismo tiempo */</p>
+
+<h3>3 columnas iguales con fr</h3>
+<div class="card">
+  <div class="demo grid-3col">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+  </div>
+  <pre><span class="prop">display</span>: <span class="val">grid</span>;
+<span class="prop">grid-template-columns</span>: <span class="val">repeat(3, 1fr)</span>;  <span class="comment-c">/* 3 columnas iguales */</span>
+<span class="prop">gap</span>: <span class="val">0.5rem</span>;                            <span class="comment-c">/* espacio entre celdas */</span>
+
+<span class="comment-c">/* fr = fracción del espacio disponible */</span>
+<span class="comment-c">/* repeat(n, valor) = repetir n veces */</span></pre>
+</div>
+
+<h3>Columnas asimétricas (2fr 1fr)</h3>
+<div class="card">
+  <div class="demo grid-asym">
+    <div class="box">Contenido principal (2fr)</div>
+    <div class="box">Sidebar (1fr)</div>
+    <div class="box">Más contenido</div>
+    <div class="box">Más sidebar</div>
+  </div>
+  <pre><span class="prop">grid-template-columns</span>: <span class="val">2fr 1fr</span>;
+<span class="prop">grid-template-columns</span>: <span class="val">200px 1fr 100px</span>; <span class="comment-c">/* mezcla px y fr */</span>
+<span class="prop">grid-template-rows</span>: <span class="val">auto 200px auto</span>;    <span class="comment-c">/* también para filas */</span></pre>
+</div>
+
+<h3>auto-fit + minmax (responsive sin media queries)</h3>
+<div class="card">
+  <div class="demo grid-auto">
+    <div class="box">A</div><div class="box">B</div><div class="box">C</div>
+    <div class="box">D</div><div class="box">E</div>
+  </div>
+  <pre><span class="prop">grid-template-columns</span>: <span class="val">repeat(auto-fit, minmax(80px, 1fr))</span>;
+<span class="comment-c">/* auto-fit: crea las columnas necesarias */</span>
+<span class="comment-c">/* minmax(min, max): mínimo 80px, máximo 1fr */</span>
+<span class="comment-c">/* → responsive SIN media queries ✨ */</span></pre>
+</div>
+
+<h3>grid-template-areas (layout visual)</h3>
+<div class="card">
+  <div class="demo grid-areas">
+    <div class="area-header">header</div>
+    <div class="area-sidebar">sidebar</div>
+    <div class="area-main">main</div>
+    <div class="area-footer">footer</div>
+  </div>
+  <pre><span class="comment-c">/* Contenedor */</span>
+<span class="prop">grid-template-areas</span>:
+  <span class="val">"header header"</span>
+  <span class="val">"sidebar main"</span>
+  <span class="val">"footer footer"</span>;
+<span class="prop">grid-template-columns</span>: <span class="val">120px 1fr</span>;
+
+<span class="comment-c">/* Cada hijo */</span>
+.header  { <span class="prop">grid-area</span>: <span class="val">header</span>; }
+.sidebar { <span class="prop">grid-area</span>: <span class="val">sidebar</span>; }
+.main    { <span class="prop">grid-area</span>: <span class="val">main</span>; }
+.footer  { <span class="prop">grid-area</span>: <span class="val">footer</span>; }</pre>
+</div>
+
+<h3>grid-column / grid-row span (elementos que ocupan varias celdas)</h3>
+<div class="card">
+  <div class="demo grid-span">
+    <div class="box span-all">Ocupa toda la fila (1 / -1)</div>
+    <div class="box span-2">Span 2 columnas</div>
+    <div class="box">Normal</div>
+    <div class="box">Normal</div>
+    <div class="box">Normal</div>
+  </div>
+  <pre><span class="prop">grid-column</span>: <span class="val">span 2</span>;   <span class="comment-c">/* ocupa 2 columnas */</span>
+<span class="prop">grid-column</span>: <span class="val">1 / -1</span>;   <span class="comment-c">/* desde col 1 hasta la última */</span>
+<span class="prop">grid-column</span>: <span class="val">1 / 3</span>;    <span class="comment-c">/* desde línea 1 hasta línea 3 */</span>
+<span class="prop">grid-row</span>: <span class="val">span 2</span>;      <span class="comment-c">/* ocupa 2 filas */</span>
+
+<span class="comment-c">/* justify-items / align-items también funcionan en grid */</span>
+<span class="prop">place-items</span>: <span class="val">center</span>;   <span class="comment-c">/* shorthand: align + justify */</span></pre>
+</div>
+
+<!-- ======================================================= -->
+<!--           FLEXBOX vs GRID — CUÁNDO USAR CADA UNO        -->
+<!-- ======================================================= -->
+<h2>🆚 Flexbox vs Grid — ¿Cuándo usar cada uno?</h2>
+<div class="card">
+  <pre><span class="comment-c">/* FLEXBOX → una dimensión (fila O columna) */</span>
+  - Navbar con items alineados
+  - Botones en fila
+  - Centrar un elemento
+  - Lista de cards que pueden wrappear
+
+<span class="comment-c">/* GRID → dos dimensiones (filas Y columnas) */</span>
+  - Layout de página completa
+  - Galería de imágenes
+  - Formularios con múltiples columnas
+  - Cualquier cosa con filas Y columnas al mismo tiempo
+
+<span class="comment-c">/* Truco: se pueden anidar. Grid para el layout general,
+   Flex para los componentes internos */</span></pre>
+</div>
+
+</body>
+</html>

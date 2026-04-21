@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Template — Eventos & Listeners</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: monospace; background: #0f0f0f; color: #e0e0e0; padding: 2rem; }
+    h1 { color: #ff80ab; border-bottom: 2px solid #ff80ab; padding-bottom: .5rem; margin-bottom: 2rem; }
+    h2 { color: #ffd600; margin: 2.5rem 0 1rem; }
+    h3 { color: #ff80ab; margin: 1.2rem 0 .4rem; font-size: .9rem; }
+    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    pre { background: #111; border: 1px solid #2a2a2a; border-radius: 6px; padding: 1rem; overflow-x: auto; font-size: .8rem; line-height: 1.7; margin: .5rem 0; }
+    .kw  { color: #ce93d8; }
+    .fn  { color: #80cbc4; }
+    .str { color: #ffcc80; }
+    .cmt { color: #4caf50; }
+    .ev  { color: #ff80ab; }
+
+    button {
+      padding: .5rem 1.2rem; margin: .3rem; border: none; border-radius: 4px;
+      background: #ff80ab; color: #000; font-weight: bold; cursor: pointer; font-family: monospace;
+    }
+    button:hover { opacity: .85; }
+    .demo-box {
+      background: #111; border: 1px dashed #444; border-radius: 6px;
+      padding: .75rem; margin: .5rem 0; min-height: 40px;
+    }
+    .log {
+      background: #0a0a0a; border: 1px solid #222; border-radius: 4px;
+      padding: .5rem .75rem; font-size: .8rem; color: #69f0ae;
+      margin: .2rem 0; max-height: 120px; overflow-y: auto;
+    }
+    input.di {
+      background: #111; border: 1px solid #444; border-radius: 4px;
+      color: #e0e0e0; padding: .5rem .8rem; font-family: monospace;
+      width: 240px; margin: .3rem 0;
+    }
+    #cajaDrag {
+      width: 80px; height: 80px; background: #ff80ab; color: #000;
+      font-weight: bold; border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; cursor: grab; user-select: none;
+    }
+    #zonaObjeto {
+      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; padding: .5rem;
+    }
+    #zonaTarget {
+      width: 120px; height: 80px; border: 2px dashed #555; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #555; font-size: .8rem; transition: border-color .2s;
+    }
+    #zonaTarget.dragover { border-color: #ff80ab; background: #1f0f14; }
+    #cajaHover { padding: 1rem 2rem; background: #1a1a1a; border: 2px solid #333; border-radius: 8px; display: inline-block; cursor: pointer; transition: all .2s; }
+    #cajaHover:hover { background: #ff80ab; color: #000; border-color: #ff80ab; transform: scale(1.05); }
+    .key-badge {
+      display: inline-block; padding: .2rem .5rem; margin: .1rem;
+      background: #333; border: 1px solid #555; border-radius: 4px; font-size: .75rem;
+    }
+    #areaDelegacion { background: #111; border: 1px dashed #444; border-radius: 6px; padding: .5rem; }
+    #areaDelegacion div {
+      background: #1a1a1a; margin: .3rem 0; padding: .4rem .8rem;
+      border-radius: 4px; cursor: pointer; border-left: 3px solid transparent; transition: .15s;
+    }
+    #areaDelegacion div:hover { border-left-color: #ff80ab; }
+    #areaDelegacion div.seleccionado { border-left-color: #ffd600; background: #1f1c00; }
+  </style>
+</head>
+<body>
+
+<h1>🎯 Template — Eventos & Listeners</h1>
+
+<!-- ============================================================ -->
+<!--               1. FORMAS DE ASIGNAR EVENTOS                   -->
+<!-- ============================================================ -->
+<h2>1. Formas de asignar eventos</h2>
+<div class="card">
+  <pre><span class="cmt">// ── ❌ Forma 1: atributo HTML (evitar en código serio) ────────</span>
+<span class="cmt">// &lt;button onclick="miFuncion()"&gt;</span>
+
+<span class="cmt">// ── ⚠️  Forma 2: propiedad on* (solo un listener por evento) ──</span>
+btn.onclick = <span class="kw">function</span>() { <span class="fn">console.log</span>(<span class="str">'click'</span>); };
+btn.onclick = otraFuncion;  <span class="cmt">// sobreescribe la anterior</span>
+
+<span class="cmt">// ── ✅ Forma 3: addEventListener (RECOMENDADA) ────────────────</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, <span class="kw">function</span>(event) {
+  <span class="fn">console.log</span>(<span class="str">'click!'</span>, event);
+});
+
+<span class="cmt">// Con arrow function</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) => {
+  <span class="fn">console.log</span>(e.target);  <span class="cmt">// elemento que disparó el evento</span>
+});
+
+<span class="cmt">// Con función nombrada (permite removeEventListener)</span>
+<span class="kw">function</span> <span class="fn">handler</span>(e) { <span class="fn">console.log</span>(e); }
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, handler);
+btn.<span class="fn">removeEventListener</span>(<span class="str">'click'</span>, handler); <span class="cmt">// quitar listener</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               2. EL OBJETO EVENT                             -->
+<!-- ============================================================ -->
+<h2>2. El objeto Event (e / event)</h2>
+<div class="card">
+  <div class="demo-box">
+    <button id="btnEvento">Hacé clic acá</button>
+  </div>
+  <div id="logEvento" class="log">Esperando evento...</div>
+
+  <pre><span class="fn">document.getElementById</span>(<span class="str">'btn'</span>).<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) => {
+
+  <span class="cmt">// ── Información del evento ──────────────────────────────────</span>
+  e.type;           <span class="cmt">// 'click', 'keydown', 'submit', etc.</span>
+  e.timeStamp;      <span class="cmt">// milisegundos desde que cargó la página</span>
+
+  <span class="cmt">// ── El elemento ─────────────────────────────────────────────</span>
+  e.target;         <span class="cmt">// elemento que disparó el evento (donde se clickeó)</span>
+  e.currentTarget;  <span class="cmt">// elemento donde está el listener</span>
+
+  <span class="cmt">// ── Mouse ────────────────────────────────────────────────────</span>
+  e.clientX;  e.clientY;   <span class="cmt">// posición relativa a la ventana</span>
+  e.pageX;    e.pageY;     <span class="cmt">// posición relativa al documento</span>
+  e.button;                <span class="cmt">// 0=izq, 1=medio, 2=der</span>
+
+  <span class="cmt">// ── Teclado ──────────────────────────────────────────────────</span>
+  e.key;        <span class="cmt">// 'Enter', 'a', 'ArrowUp', etc.</span>
+  e.code;       <span class="cmt">// 'KeyA', 'Enter', 'Space' (físico)</span>
+  e.ctrlKey;    <span class="cmt">// true si Ctrl presionado</span>
+  e.shiftKey;   <span class="cmt">// true si Shift presionado</span>
+  e.altKey;     <span class="cmt">// true si Alt presionado</span>
+
+  <span class="cmt">// ── Controlar el comportamiento ──────────────────────────────</span>
+  e.<span class="fn">preventDefault</span>();  <span class="cmt">// cancela la acción por defecto</span>
+                        <span class="cmt">// (submit de form, seguir link, etc.)</span>
+  e.<span class="fn">stopPropagation</span>(); <span class="cmt">// detiene el bubbling</span>
+});
+</pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               3. EVENTOS DE MOUSE                            -->
+<!-- ============================================================ -->
+<h2>3. Eventos de Mouse</h2>
+<div class="card">
+  <div id="cajaHover">Pasá el mouse por acá 🖱️</div>
+  <div id="logMouse" class="log" style="margin-top:.5rem">Esperando...</div>
+
+  <pre><span class="ev">'click'</span>        <span class="cmt">// clic izquierdo</span>
+<span class="ev">'dblclick'</span>     <span class="cmt">// doble clic</span>
+<span class="ev">'mousedown'</span>    <span class="cmt">// botón presionado</span>
+<span class="ev">'mouseup'</span>      <span class="cmt">// botón soltado</span>
+<span class="ev">'mouseover'</span>    <span class="cmt">// entra al elemento o hijos</span>
+<span class="ev">'mouseout'</span>     <span class="cmt">// sale del elemento o hijos</span>
+<span class="ev">'mouseenter'</span>   <span class="cmt">// entra al elemento (sin bubbling) ← preferido</span>
+<span class="ev">'mouseleave'</span>   <span class="cmt">// sale del elemento (sin bubbling) ← preferido</span>
+<span class="ev">'mousemove'</span>    <span class="cmt">// se mueve sobre el elemento</span>
+<span class="ev">'contextmenu'</span>  <span class="cmt">// clic derecho (menú contextual)</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               4. EVENTOS DE TECLADO                         -->
+<!-- ============================================================ -->
+<h2>4. Eventos de Teclado</h2>
+<div class="card">
+  <input class="di" id="inputTeclado" placeholder="Escribí algo..." />
+  <div id="logTeclado" class="log">Esperando tecla...</div>
+  <div style="margin-top:.5rem">
+    Teclas especiales: <span class="key-badge">Enter</span><span class="key-badge">Escape</span>
+    <span class="key-badge">ArrowUp</span><span class="key-badge">ArrowDown</span>
+    <span class="key-badge">Backspace</span><span class="key-badge">Tab</span><span class="key-badge">Space</span>
+  </div>
+
+  <pre><span class="ev">'keydown'</span>   <span class="cmt">// tecla presionada (se repite si se mantiene) ← más usado</span>
+<span class="ev">'keyup'</span>     <span class="cmt">// tecla soltada</span>
+<span class="ev">'keypress'</span>  <span class="cmt">// ⚠️ deprecated, usar keydown</span>
+
+<span class="cmt">// Ejemplo: detectar Enter</span>
+input.<span class="fn">addEventListener</span>(<span class="str">'keydown'</span>, (e) => {
+  <span class="kw">if</span> (e.key === <span class="str">'Enter'</span>) { <span class="fn">enviar</span>(); }
+  <span class="kw">if</span> (e.key === <span class="str">'Escape'</span>) { <span class="fn">cancelar</span>(); }
+  <span class="kw">if</span> (e.ctrlKey && e.key === <span class="str">'s'</span>) { <span class="fn">guardar</span>(); } <span class="cmt">// Ctrl+S</span>
+});</pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               5. EVENTOS DE FORMULARIO                       -->
+<!-- ============================================================ -->
+<h2>5. Eventos de Formulario</h2>
+<div class="card">
+  <input class="di" id="inputForm" placeholder="Escribí algo..." />
+  <div id="logForm" class="log">Esperando...</div>
+
+  <pre><span class="ev">'submit'</span>   <span class="cmt">// cuando se envía el formulario</span>
+<span class="ev">'change'</span>   <span class="cmt">// cuando cambia el valor Y pierde foco</span>
+<span class="ev">'input'</span>    <span class="cmt">// CADA VEZ que cambia el valor ← tiempo real</span>
+<span class="ev">'focus'</span>    <span class="cmt">// cuando el campo recibe foco</span>
+<span class="ev">'blur'</span>     <span class="cmt">// cuando el campo pierde foco</span>
+<span class="ev">'reset'</span>    <span class="cmt">// cuando se resetea el formulario</span>
+
+<span class="cmt">// ── Ejemplo input en tiempo real ─────────────────────────────</span>
+input.<span class="fn">addEventListener</span>(<span class="str">'input'</span>, (e) => {
+  <span class="fn">console.log</span>(<span class="str">'Valor actual:'</span>, e.target.value);
+});
+
+<span class="cmt">// ── Ejemplo submit ───────────────────────────────────────────</span>
+form.<span class="fn">addEventListener</span>(<span class="str">'submit'</span>, (e) => {
+  e.<span class="fn">preventDefault</span>();           <span class="cmt">// ← SIEMPRE para no recargar</span>
+  <span class="kw">const</span> valor = input.value;
+  <span class="fn">console.log</span>(<span class="str">'Enviado:'</span>, valor);
+});</pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               6. DELEGACIÓN DE EVENTOS                       -->
+<!-- ============================================================ -->
+<h2>6. Delegación de eventos</h2>
+<div class="card">
+  <p style="color:#aaa; font-size:.85rem; margin-bottom:.5rem;">
+    Hacé clic en los items (incluido el que se agrega dinámicamente):
+  </p>
+  <div id="areaDelegacion">
+    <div data-id="1">Item 1</div>
+    <div data-id="2">Item 2</div>
+    <div data-id="3">Item 3</div>
+  </div>
+  <button onclick="agregarItemDelegacion()" style="margin-top:.5rem">
+    + Agregar item dinámico
+  </button>
+  <div id="logDelegacion" class="log" style="margin-top:.5rem">Esperando clic...</div>
+
+  <pre><span class="cmt">// ── Problema: listener en cada hijo ──────────────────────────</span>
+items.<span class="fn">forEach</span>(item => item.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, fn));
+<span class="cmt">// ❌ Los elementos creados DESPUÉS no tienen el listener</span>
+
+<span class="cmt">// ── Solución: delegación en el PADRE ─────────────────────────</span>
+<span class="kw">const</span> lista = <span class="fn">document.getElementById</span>(<span class="str">'lista'</span>);
+lista.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) => {
+
+  <span class="cmt">// Verificar que se clickeó el elemento correcto</span>
+  <span class="kw">if</span> (e.target.<span class="fn">matches</span>(<span class="str">'div'</span>)) {
+    <span class="fn">console.log</span>(<span class="str">'Item clickeado:'</span>, e.target.dataset.id);
+  }
+
+  <span class="cmt">// O con closest (útil si hay elementos hijos dentro)</span>
+  <span class="kw">const</span> item = e.target.<span class="fn">closest</span>(<span class="str">'[data-id]'</span>);
+  <span class="kw">if</span> (item) { <span class="fn">console.log</span>(item.dataset.id); }
+});
+<span class="cmt">// ✅ Funciona para items que se agregan dinámicamente también</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               7. BUBBLING Y CAPTURING                        -->
+<!-- ============================================================ -->
+<h2>7. Bubbling & Capturing</h2>
+<div class="card">
+  <pre><span class="cmt">// ── Bubbling (por defecto) ────────────────────────────────────</span>
+<span class="cmt">// El evento sube: hijo → padre → abuelo → document</span>
+<span class="cmt">// Si clickeás un &lt;span&gt; dentro de un &lt;div&gt;, ambos reciben el evento</span>
+
+hijo.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) => {
+  e.<span class="fn">stopPropagation</span>();  <span class="cmt">// detiene el bubbling hacia el padre</span>
+});
+
+<span class="cmt">// ── Capturing (fase de captura, menos común) ──────────────────</span>
+<span class="cmt">// El evento baja: document → abuelo → padre → hijo</span>
+padre.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, handler, <span class="kw">true</span>);  <span class="cmt">// ← true activa capture</span>
+
+<span class="cmt">// ── Orden completo de un evento ──────────────────────────────</span>
+<span class="cmt">// 1. Captura (document → target)  [fase capture]</span>
+<span class="cmt">// 2. Target (el elemento clickeado) [fase target]</span>
+<span class="cmt">// 3. Bubbling (target → document) [fase bubble]</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               8. EVENTOS COMUNES — REFERENCIA RÁPIDA         -->
+<!-- ============================================================ -->
+<h2>8. Referencia rápida — todos los eventos importantes</h2>
+<div class="card">
+  <pre><span class="cmt">// ── RATÓN ────────────────────────────────────────────────────</span>
+<span class="ev">'click'</span> <span class="ev">'dblclick'</span> <span class="ev">'mousedown'</span> <span class="ev">'mouseup'</span>
+<span class="ev">'mouseenter'</span> <span class="ev">'mouseleave'</span> <span class="ev">'mousemove'</span> <span class="ev">'contextmenu'</span>
+
+<span class="cmt">// ── TECLADO ──────────────────────────────────────────────────</span>
+<span class="ev">'keydown'</span> <span class="ev">'keyup'</span>
+
+<span class="cmt">// ── FORMULARIOS ──────────────────────────────────────────────</span>
+<span class="ev">'submit'</span> <span class="ev">'input'</span> <span class="ev">'change'</span> <span class="ev">'focus'</span> <span class="ev">'blur'</span> <span class="ev">'reset'</span>
+
+<span class="cmt">// ── VENTANA / DOCUMENTO ──────────────────────────────────────</span>
+<span class="ev">'load'</span>             <span class="cmt">// página completamente cargada (imgs, css, etc.)</span>
+<span class="ev">'DOMContentLoaded'</span> <span class="cmt">// HTML parseado (sin esperar imgs) ← preferido</span>
+<span class="ev">'resize'</span>           <span class="cmt">// ventana redimensionada</span>
+<span class="ev">'scroll'</span>           <span class="cmt">// usuario hace scroll</span>
+<span class="ev">'beforeunload'</span>     <span class="cmt">// antes de cerrar/recargar la página</span>
+
+<span class="cmt">// ── CLIPBOARD ────────────────────────────────────────────────</span>
+<span class="ev">'copy'</span> <span class="ev">'cut'</span> <span class="ev">'paste'</span>
+
+<span class="cmt">// ── DRAG & DROP ──────────────────────────────────────────────</span>
+<span class="ev">'dragstart'</span> <span class="ev">'dragend'</span> <span class="ev">'dragover'</span> <span class="ev">'drop'</span> <span class="ev">'dragenter'</span> <span class="ev">'dragleave'</span>
+
+<span class="cmt">// ── TOUCH (mobile) ───────────────────────────────────────────</span>
+<span class="ev">'touchstart'</span> <span class="ev">'touchend'</span> <span class="ev">'touchmove'</span>
+
+<span class="cmt">// ── PATRÓN: ejecutar cuando el DOM está listo ────────────────</span>
+<span class="fn">document</span>.<span class="fn">addEventListener</span>(<span class="str">'DOMContentLoaded'</span>, () => {
+  <span class="cmt">// todo tu código acá</span>
+});</pre>
+</div>
+
+<script>
+  // ─── Demo 2: objeto event ────────────────────────────────────
+  document.getElementById('btnEvento').addEventListener('click', (e) => {
+    document.getElementById('logEvento').textContent =
+      `type: ${e.type} | target: ${e.target.tagName} | coords: (${e.clientX}, ${e.clientY})`;
+  });
+
+  // ─── Demo 3: mouse events ────────────────────────────────────
+  const cajaHover = document.getElementById('cajaHover');
+  const logMouse  = document.getElementById('logMouse');
+  cajaHover.addEventListener('mouseenter', () => logMouse.textContent = '🖱️ mouseenter — entró al elemento');
+  cajaHover.addEventListener('mouseleave', () => logMouse.textContent = '🖱️ mouseleave — salió del elemento');
+  cajaHover.addEventListener('click',      () => logMouse.textContent = '🖱️ click — ¡clic!');
+  cajaHover.addEventListener('dblclick',   () => logMouse.textContent = '🖱️ dblclick — doble clic');
+
+  // ─── Demo 4: teclado ────────────────────────────────────────
+  document.getElementById('inputTeclado').addEventListener('keydown', (e) => {
+    document.getElementById('logTeclado').textContent =
+      `key: "${e.key}" | code: "${e.code}" | ctrl: ${e.ctrlKey} | shift: ${e.shiftKey}`;
+  });
+
+  // ─── Demo 5: input en tiempo real ───────────────────────────
+  document.getElementById('inputForm').addEventListener('input', (e) => {
+    document.getElementById('logForm').textContent =
+      `input → valor actual: "${e.target.value}" (${e.target.value.length} chars)`;
+  });
+  document.getElementById('inputForm').addEventListener('focus', () => {
+    document.getElementById('logForm').textContent = '📍 focus — campo activo';
+  });
+  document.getElementById('inputForm').addEventListener('blur', () => {
+    document.getElementById('logForm').textContent = '📍 blur — campo perdió foco';
+  });
+
+  // ─── Demo 6: delegación ─────────────────────────────────────
+  let contadorItems = 3;
+  const areaDelegacion = document.getElementById('areaDelegacion');
+  const logDelegacion  = document.getElementById('logDelegacion');
+
+  areaDelegacion.addEventListener('click', (e) => {
+    const item = e.target.closest('[data-id]');
+    if (!item) return;
+
+    // Quitar seleccionado anterior
+    areaDelegacion.querySelectorAll('.seleccionado')
+      .forEach(el => el.classList.remove('seleccionado'));
+
+    item.classList.add('seleccionado');
+    logDelegacion.textContent = `✅ Clic en: "${item.textContent.trim()}" | data-id: ${item.dataset.id}`;
+  });
+
+  function agregarItemDelegacion() {
+    contadorItems++;
+    const div = document.createElement('div');
+    div.dataset.id = contadorItems;
+    div.textContent = `Item ${contadorItems} (dinámico)`;
+    areaDelegacion.appendChild(div);
+    logDelegacion.textContent = `➕ Item ${contadorItems} agregado — hacé clic en él!`;
+  }
+</script>
+
+</body>
+</html>

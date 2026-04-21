@@ -1,0 +1,64 @@
+/* div centrado con flexbox */
+
+.div_flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.div_flex_center_horizontal {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 15px;
+  gap: 15px;
+}
+
+label {
+  width: 80px;
+  text-align: right;
+}
+
+.label_preguntas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  white-space: nowrap;
+}
+
+/* Titulo generico */
+h1 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  font-size: 5vh;
+}
+
+h2 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #858ae3;
+}
+/* Body generico */
+
+.btn {
+  background: #613dc1;
+  color: #97dffc;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: #4e148c;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2c0735;
+  color: #97dffc;
+}

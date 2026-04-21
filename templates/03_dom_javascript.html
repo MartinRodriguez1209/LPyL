@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Template — DOM con JavaScript</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: monospace; background: #0f0f0f; color: #e0e0e0; padding: 2rem; }
+    h1 { color: #69f0ae; border-bottom: 2px solid #69f0ae; padding-bottom: .5rem; margin-bottom: 2rem; }
+    h2 { color: #ffd600; margin: 2.5rem 0 1rem; }
+    h3 { color: #80cbc4; margin: 1.2rem 0 .4rem; font-size: .9rem; }
+    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .comment { color: #4caf50; font-size: .82rem; margin-bottom: .5rem; }
+    pre { background: #111; border: 1px solid #2a2a2a; border-radius: 6px; padding: 1rem; overflow-x: auto; font-size: .8rem; line-height: 1.7; margin: .5rem 0; }
+    .kw   { color: #ce93d8; }
+    .fn   { color: #80cbc4; }
+    .str  { color: #ffcc80; }
+    .cmt  { color: #4caf50; }
+    .num  { color: #ff8a65; }
+
+    /* Demo styles */
+    button {
+      padding: .5rem 1.2rem; margin: .3rem; border: none; border-radius: 4px;
+      background: #69f0ae; color: #000; font-weight: bold; cursor: pointer; font-family: monospace;
+    }
+    button:hover { background: #00e676; }
+    .btn-danger { background: #ff5252; color: #fff; }
+    .btn-danger:hover { background: #d32f2f; }
+    .demo-box {
+      background: #111; border: 1px dashed #444; border-radius: 6px;
+      padding: .75rem; min-height: 40px; margin: .5rem 0;
+    }
+    #miParrafo { font-size: 1.1rem; color: #80cbc4; }
+    #listaDemo { list-style: none; }
+    #listaDemo li {
+      background: #222; margin: .3rem 0; padding: .4rem .8rem;
+      border-radius: 4px; border-left: 3px solid #69f0ae;
+    }
+    input.demo-input {
+      background: #111; border: 1px solid #444; border-radius: 4px;
+      color: #e0e0e0; padding: .5rem .8rem; font-family: monospace; width: 220px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🌐 Template — DOM con JavaScript</h1>
+<p class="comment">/* El DOM (Document Object Model) es la representación del HTML como objetos de JS */</p>
+
+<!-- ============================================================ -->
+<!--                     1. SELECCIONAR ELEMENTOS                  -->
+<!-- ============================================================ -->
+<h2>1. Seleccionar elementos</h2>
+<div class="card">
+  <pre><span class="cmt">// ── Por ID ──────────────────────────────────────────────────</span>
+<span class="kw">const</span> el = <span class="fn">document.getElementById</span>(<span class="str">'miId'</span>);
+
+<span class="cmt">// ── Por selector CSS (devuelve el PRIMERO) ───────────────────</span>
+<span class="kw">const</span> el = <span class="fn">document.querySelector</span>(<span class="str">'.clase'</span>);
+<span class="kw">const</span> el = <span class="fn">document.querySelector</span>(<span class="str">'#miId'</span>);
+<span class="kw">const</span> el = <span class="fn">document.querySelector</span>(<span class="str">'div > p'</span>);
+
+<span class="cmt">// ── Por selector CSS (devuelve TODOS como NodeList) ──────────</span>
+<span class="kw">const</span> lista = <span class="fn">document.querySelectorAll</span>(<span class="str">'li'</span>);
+lista.<span class="fn">forEach</span>(item => <span class="fn">console.log</span>(item));
+
+<span class="cmt">// ── Otros selectores (menos usados) ─────────────────────────</span>
+<span class="fn">document.getElementsByClassName</span>(<span class="str">'clase'</span>);  <span class="cmt">// HTMLCollection</span>
+<span class="fn">document.getElementsByTagName</span>(<span class="str">'p'</span>);        <span class="cmt">// HTMLCollection</span>
+
+<span class="cmt">// ── Buscar dentro de un elemento ────────────────────────────</span>
+<span class="kw">const</span> contenedor = <span class="fn">document.querySelector</span>(<span class="str">'.contenedor'</span>);
+<span class="kw">const</span> hijo = contenedor.<span class="fn">querySelector</span>(<span class="str">'p'</span>); <span class="cmt">// busca dentro</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--                 2. LEER Y MODIFICAR CONTENIDO               -->
+<!-- ============================================================ -->
+<h2>2. Leer y modificar contenido</h2>
+<div class="card">
+  <div class="demo-box">
+    <p id="miParrafo">Texto original del párrafo</p>
+  </div>
+  <button onclick="cambiarTexto()">Cambiar texto</button>
+  <button onclick="cambiarHTML()">Cambiar HTML</button>
+  <button onclick="leerContenido()">Leer contenido</button>
+
+  <pre><span class="cmt">// ── textContent → solo texto plano (más seguro) ──────────────</span>
+<span class="kw">const</span> p = <span class="fn">document.getElementById</span>(<span class="str">'miParrafo'</span>);
+p.textContent = <span class="str">'Nuevo texto'</span>;
+<span class="fn">console.log</span>(p.textContent);
+
+<span class="cmt">// ── innerHTML → texto + etiquetas HTML ───────────────────────</span>
+p.innerHTML = <span class="str">'&lt;strong&gt;Texto en negrita&lt;/strong&gt;'</span>;
+
+<span class="cmt">// ── value → para inputs, selects y textareas ─────────────────</span>
+<span class="kw">const</span> input = <span class="fn">document.querySelector</span>(<span class="str">'input'</span>);
+input.value = <span class="str">'nuevo valor'</span>;
+<span class="fn">console.log</span>(input.value);</pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               3. MODIFICAR ESTILOS Y CLASES                  -->
+<!-- ============================================================ -->
+<h2>3. Modificar estilos y clases</h2>
+<div class="card">
+  <div class="demo-box" id="cajaColores">
+    <p id="textoColores">Este elemento cambia de estilo</p>
+  </div>
+  <button onclick="cambiarEstilo()">Cambiar estilo inline</button>
+  <button onclick="toggleClase()">Toggle clase</button>
+  <button onclick="checkClase()">¿Tiene la clase?</button>
+
+  <pre><span class="kw">const</span> caja = <span class="fn">document.getElementById</span>(<span class="str">'caja'</span>);
+
+<span class="cmt">// ── Estilo inline ────────────────────────────────────────────</span>
+caja.style.color = <span class="str">'red'</span>;
+caja.style.backgroundColor = <span class="str">'#333'</span>;   <span class="cmt">// camelCase</span>
+caja.style.fontSize = <span class="str">'1.5rem'</span>;
+caja.style.display = <span class="str">'none'</span>;           <span class="cmt">// ocultar</span>
+
+<span class="cmt">// ── Clases (lo más recomendado) ──────────────────────────────</span>
+caja.classList.<span class="fn">add</span>(<span class="str">'activo'</span>);          <span class="cmt">// agrega clase</span>
+caja.classList.<span class="fn">remove</span>(<span class="str">'activo'</span>);       <span class="cmt">// quita clase</span>
+caja.classList.<span class="fn">toggle</span>(<span class="str">'activo'</span>);       <span class="cmt">// alterna (add/remove)</span>
+caja.classList.<span class="fn">contains</span>(<span class="str">'activo'</span>);     <span class="cmt">// true/false</span>
+caja.classList.<span class="fn">replace</span>(<span class="str">'old'</span>, <span class="str">'new'</span>); <span class="cmt">// reemplaza</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               4. MODIFICAR ATRIBUTOS                         -->
+<!-- ============================================================ -->
+<h2>4. Modificar atributos</h2>
+<div class="card">
+  <pre><span class="kw">const</span> img  = <span class="fn">document.querySelector</span>(<span class="str">'img'</span>);
+<span class="kw">const</span> link = <span class="fn">document.querySelector</span>(<span class="str">'a'</span>);
+
+<span class="cmt">// ── getAttribute / setAttribute / removeAttribute ────────────</span>
+img.<span class="fn">getAttribute</span>(<span class="str">'src'</span>);                     <span class="cmt">// leer</span>
+img.<span class="fn">setAttribute</span>(<span class="str">'src'</span>, <span class="str">'nueva.jpg'</span>);       <span class="cmt">// escribir</span>
+img.<span class="fn">removeAttribute</span>(<span class="str">'alt'</span>);                 <span class="cmt">// eliminar</span>
+img.<span class="fn">hasAttribute</span>(<span class="str">'disabled'</span>);              <span class="cmt">// true/false</span>
+
+<span class="cmt">// ── Acceso directo para atributos comunes ────────────────────</span>
+link.href = <span class="str">'https://google.com'</span>;
+img.src    = <span class="str">'foto.jpg'</span>;
+img.alt    = <span class="str">'descripción'</span>;
+input.disabled = <span class="kw">true</span>;
+input.checked  = <span class="kw">false</span>;
+input.value    = <span class="str">'texto'</span>;
+
+<span class="cmt">// ── data-* atributos ─────────────────────────────────────────</span>
+<span class="cmt">// HTML: &lt;div data-id="42" data-nombre="Carlos"&gt;</span>
+<span class="kw">const</span> div = <span class="fn">document.querySelector</span>(<span class="str">'div'</span>);
+div.dataset.id;        <span class="cmt">// "42"</span>
+div.dataset.nombre;    <span class="cmt">// "Carlos"</span>
+div.dataset.nuevoVal = <span class="str">'hola'</span>; <span class="cmt">// agrega data-nuevo-val</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               5. CREAR Y ELIMINAR ELEMENTOS                  -->
+<!-- ============================================================ -->
+<h2>5. Crear y eliminar elementos</h2>
+<div class="card">
+  <input class="demo-input" id="inputItem" placeholder="Escribí un item..." />
+  <button onclick="agregarItem()">Agregar a lista</button>
+  <button class="btn-danger" onclick="limpiarLista()">Limpiar</button>
+  <div class="demo-box">
+    <ul id="listaDemo"></ul>
+  </div>
+
+  <pre><span class="cmt">// ── Crear elemento ───────────────────────────────────────────</span>
+<span class="kw">const</span> nuevoP = <span class="fn">document.createElement</span>(<span class="str">'p'</span>);
+nuevoP.textContent = <span class="str">'Párrafo nuevo'</span>;
+nuevoP.classList.<span class="fn">add</span>(<span class="str">'mi-clase'</span>);
+
+<span class="cmt">// ── Insertar en el DOM ───────────────────────────────────────</span>
+<span class="kw">const</span> contenedor = <span class="fn">document.getElementById</span>(<span class="str">'cont'</span>);
+contenedor.<span class="fn">appendChild</span>(nuevoP);             <span class="cmt">// al final</span>
+contenedor.<span class="fn">prepend</span>(nuevoP);                 <span class="cmt">// al principio</span>
+contenedor.<span class="fn">insertBefore</span>(nuevoP, referencia); <span class="cmt">// antes de otro</span>
+
+<span class="cmt">// ── Alternativa rápida con innerHTML (ojo: sobreescribe todo) </span>
+contenedor.innerHTML += <span class="str">'&lt;li&gt;Nuevo item&lt;/li&gt;'</span>;
+
+<span class="cmt">// ── Eliminar elemento ────────────────────────────────────────</span>
+contenedor.<span class="fn">removeChild</span>(nuevoP);           <span class="cmt">// desde el padre</span>
+nuevoP.<span class="fn">remove</span>();                          <span class="cmt">// directo (moderno)</span>
+
+<span class="cmt">// ── Clonar elemento ─────────────────────────────────────────</span>
+<span class="kw">const</span> clon = nuevoP.<span class="fn">cloneNode</span>(<span class="kw">true</span>);      <span class="cmt">// true = copia hijos tb</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<!--               6. NAVEGAR EL DOM                              -->
+<!-- ============================================================ -->
+<h2>6. Navegar el DOM (relaciones entre elementos)</h2>
+<div class="card">
+  <pre><span class="kw">const</span> el = <span class="fn">document.querySelector</span>(<span class="str">'.elemento'</span>);
+
+<span class="cmt">// ── Padre ────────────────────────────────────────────────────</span>
+el.parentElement;
+el.closest(<span class="str">'.contenedor'</span>);   <span class="cmt">// sube hasta encontrar el selector</span>
+
+<span class="cmt">// ── Hijos ────────────────────────────────────────────────────</span>
+el.children;                  <span class="cmt">// HTMLCollection de hijos directos</span>
+el.firstElementChild;
+el.lastElementChild;
+el.children[<span class="num">0</span>];              <span class="cmt">// primer hijo</span>
+
+<span class="cmt">// ── Hermanos ─────────────────────────────────────────────────</span>
+el.nextElementSibling;
+el.previousElementSibling;
+
+<span class="cmt">// ── Verificar si existe ──────────────────────────────────────</span>
+<span class="kw">if</span> (el) { <span class="cmt">/* el es null si no existe */</span> }
+<span class="kw">if</span> (el !== <span class="kw">null</span>) { ... }</pre>
+</div>
+
+<script>
+  // ─── Demo 2: cambiar contenido ───────────────────────────────
+  function cambiarTexto() {
+    document.getElementById('miParrafo').textContent = '✅ Texto cambiado con textContent';
+  }
+  function cambiarHTML() {
+    document.getElementById('miParrafo').innerHTML = '<em>Texto en</em> <strong>HTML</strong>';
+  }
+  function leerContenido() {
+    alert('textContent: ' + document.getElementById('miParrafo').textContent);
+  }
+
+  // ─── Demo 3: estilos y clases ────────────────────────────────
+  let estiloAplicado = false;
+  function cambiarEstilo() {
+    const caja = document.getElementById('cajaColores');
+    estiloAplicado = !estiloAplicado;
+    caja.style.backgroundColor = estiloAplicado ? '#1a3a2a' : '';
+    caja.style.borderColor      = estiloAplicado ? '#69f0ae' : '#444';
+  }
+  function toggleClase() {
+    document.getElementById('textoColores').classList.toggle('resaltado');
+  }
+  function checkClase() {
+    const tiene = document.getElementById('textoColores').classList.contains('resaltado');
+    alert('¿Tiene clase "resaltado"? ' + tiene);
+  }
+
+  // ─── Demo 5: crear/eliminar ──────────────────────────────────
+  function agregarItem() {
+    const input = document.getElementById('inputItem');
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    const lista = document.getElementById('listaDemo');
+    const li = document.createElement('li');
+    li.textContent = texto;
+    lista.appendChild(li);
+    input.value = '';
+    input.focus();
+  }
+  function limpiarLista() {
+    document.getElementById('listaDemo').innerHTML = '';
+  }
+
+  // Agregar con Enter
+  document.getElementById('inputItem').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') agregarItem();
+  });
+</script>
+
+</body>
+</html>
