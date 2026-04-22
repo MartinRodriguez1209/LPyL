@@ -23,6 +23,27 @@ formulario.addEventListener("submit", function (evento) {
 });
 
 function mostrarResultado(resultado) {
-  localStorage.setItem("puntajeTotal", resultado);
+  sessionStorage.setItem("puntajeTotal", resultado);
+  const nombre = document.getElementById("idNombre").value;
+  const apellido = document.getElementById("idApellido").value;
+  const edad = document.getElementById("idEdad").value;
+
+  const mail =
+    "Datos del postulante: " +
+    nombre +
+    " " +
+    " " +
+    apellido +
+    "\nEdad:" +
+    edad +
+    "\n Resultado del test: " +
+    resultado;
+  window.location.href =
+    "mailto:" +
+    "postulantes@empresacocina.com.ar" +
+    "?subject=" +
+    encodeURIComponent("TEST DE APTITUD") +
+    "&body=" +
+    encodeURIComponent(mail);
   window.location.href = "resultado.html";
 }

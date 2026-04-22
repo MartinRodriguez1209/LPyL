@@ -1,4 +1,4 @@
-const puntajeTotal = localStorage.getItem("puntajeTotal");
+const puntajeTotal = sessionStorage.getItem("puntajeTotal");
 const span = document.getElementById("idPuntajeFinal");
 span.textContent = puntajeTotal;
 
