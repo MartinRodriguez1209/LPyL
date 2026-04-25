@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <h1>Cotizador Online</h1>
+    <div class="div_flex_center">
+      <h2>Eliga el servicio deseado</h2>
+      <select name="servicioElegido" id="idServicioElegido">
+        <option value="" disabled selected hidden>Elige un servicio</option>
+        <option value="peluqueria">Peluqueria</option>
+        <option value="banio">Baño</option>
+        <option value="acuario">Limpieza de acuario</option>
+        <option value="vacunacion">Vacunacion</option>
+        <option value="consulta">Consulta Medica</option>
+      </select>
+
+      <form id="idFormularioCotizacion">
+        <div id="camposDinamicos" class="div_flex_center_vert"></div>
+      </form>
+      <div id="mensajeResultado"></div>
+    </div>
+  </body>
+</html>
