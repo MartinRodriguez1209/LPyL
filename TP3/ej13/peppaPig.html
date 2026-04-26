@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jardin</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="peppaPig.js" defer></script>
+  </head>
+  <body>
+    <h1>Bienvenido <span id="idNombreTitulo"></span></h1>
+    <div class="div_flex_center">
+      <h2>Visita numero <span id="idNumeroVisita"></span></h2>
+      <h2>Fecha de la ultima visita <span id="idFechaVisita"></span></h2>
+      <span
+        ><form>
+          <label for="idUtil"
+            >Ingrese un util
+            <input required type="text" id="idInputUtil" /></label
+          ><button id="idBotonAgregarUtil">Confirmar</button>
+        </form></span
+      >
+      <h2>Lista de utiles:</h2>
+      <ul id="idListaUtiles"></ul>
+      <button id="idBorrarUtiles">BORRAR UTILES</button>
+    </div>
+  </body>
+</html>

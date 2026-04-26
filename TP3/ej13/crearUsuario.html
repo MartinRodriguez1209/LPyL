@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="crearUsuario.js" defer></script>
+  </head>
+  <body>
+    <h1>Jardin Peppa Pig</h1>
+    <div class="div_flex_center">
+      <form action="" class="form_login" id="idFormCrearUsuario">
+        <span>
+          <label for="idNombreUsuario">Nombre de Usuario</label>
+          <input type="text" name="nombreUsuario" id="idNombreUsuario"
+        /></span>
+        <span>
+          <label for="idNombre">Nombre</label>
+          <input type="text" name="nombre" id="idNombre"
+        /></span>
+        <span
+          ><label for="idApellido">Apellido</label>
+          <input type="text" name="apellido" id="idApellido" />
+        </span>
+        <span
+          ><label for="idContrasenia">Contraseña</label>
+          <input type="password" name="contrasenia" id="idContrasenia" />
+        </span>
+        <button type="button" id="idCrearUsuario">Crear Cuenta</button>
+        <button
+          type="button"
+          id="idVolver"
+          onclick="window.location.href = 'index.html'"
+        >
+          Volver
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
