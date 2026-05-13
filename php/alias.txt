@@ -1,0 +1,9 @@
+ Alias /miproyecto "C:\Users\User\Documents\LPyL\php"
+
+    <Directory "C:\Users\User\Documents\LPyL\php">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    
