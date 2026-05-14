@@ -1,0 +1,8 @@
+.div_flex_hor {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.div_pizz {
+}
