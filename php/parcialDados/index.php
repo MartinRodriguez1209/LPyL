@@ -30,6 +30,8 @@ if (isset($_POST["accion"])) {
             $_SESSION["turnos"] = $historialTurnos;
             $_SESSION["partida"] = $partida;
         } else {
+            echo "<h2>TERMINO LA PARTIDA</h2>";
+            echo "<h2>GANADOR: " . $partida->ganador() . "</h2>";
             echo "<h1>DEBES INICIAR UNA NUEVA PARTIDA</h1>";
         }
     } else if (($_POST["accion"] == "nuevo")) {
