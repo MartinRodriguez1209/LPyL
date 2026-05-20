@@ -55,7 +55,7 @@ class Partida
     public function ganador()
     {
         if ($this->jugador->derrota()) return "CPU";
-        if ($this->jugadorCPU->derrota()) return "Jugador";
+        if ($this->jugadorCPU->derrota()) return "martin";
         return null;
     }
 }

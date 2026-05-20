@@ -11,6 +11,12 @@ if (isset($_SESSION["partida"])) {
     $partida = new Partida();
 }
 
+$historial = isset($_SESSION["historial"]) ? $_SESSION["historial"] : ["partidas" => 0, "victorias" => 0];
+
+echo "<h1>Numero de partidas jugadas: " . $historial["partidas"] . "</h1>";
+echo "<h1>Numero de partidas ganadas: " . $historial["victorias"] . "</h1>";
+
+
 if (isset($_SESSION["turnos"])) {
     $historialTurnos = $_SESSION["turnos"];
 }
@@ -23,15 +29,13 @@ if (isset($_POST["accion"])) {
             if (!$partida->termino()) {
                 $partida->tiradaCpu();
                 $historialTurnos[] = mostrarTurno($partida);
+                if ($partida->termino()) terminarPartida($partida->ganador() == "martin", $historial, $partida);
             } else {
-                echo "<h2>TERMINO LA PARTIDA</h2>";
-                echo "<h2>GANADOR: " . $partida->ganador() . "</h2>";
+                terminarPartida($partida->ganador() == "martin", $historial, $partida);
             }
             $_SESSION["turnos"] = $historialTurnos;
             $_SESSION["partida"] = $partida;
         } else {
-            echo "<h2>TERMINO LA PARTIDA</h2>";
-            echo "<h2>GANADOR: " . $partida->ganador() . "</h2>";
             echo "<h1>DEBES INICIAR UNA NUEVA PARTIDA</h1>";
         }
     } else if (($_POST["accion"] == "nuevo")) {
@@ -40,8 +44,16 @@ if (isset($_POST["accion"])) {
         header("Refresh:0");
     }
 }
-
-
+function terminarPartida($gano, &$historial, $partida)
+{
+    $historial["partidas"]++;
+    if ($gano) {
+        $historial["victorias"]++;
+    }
+    echo "<h2>TERMINO LA PARTIDA</h2>";
+    echo "<h2>GANADOR: " . $partida->ganador() . "</h2>";
+    $_SESSION["historial"] = $historial;
+}
 
 function mostrarTurno($partida)
 {
@@ -54,7 +66,6 @@ function mostrarTurno($partida)
             <td>" . $turno["puntosCpu"] . "</td>
         </tr>";
 }
-
 
 ?>
 
@@ -69,6 +80,11 @@ function mostrarTurno($partida)
 </head>
 
 <body>
+    <form method="post" action="index.php">
+        <button type="submit" name="accion" value="tirar">Tirar</button>
+        <button type="submit" name="accion" value="nuevo">Nuevo Juego</button>
+        <button type="submit" name="accion" value="abandonar">Abandonar</button>
+    </form>
     <table>
         <tr>
             <th>Tirada</th>
@@ -84,11 +100,7 @@ function mostrarTurno($partida)
         } ?>
 
     </table>
-    <form method="post" action="index.php">
-        <button type="submit" name="accion" value="tirar">Tirar</button>
-        <button type="submit" name="accion" value="nuevo">Nuevo Juego</button>
-        <button type="submit" name="accion" value="abandonar">Abandonar</button>
-    </form>
+
 </body>
 
 </html>
