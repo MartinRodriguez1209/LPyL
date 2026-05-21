@@ -1,9 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["entrega"])) {
-    header("Location: index.php");
-    exit;
-}
+
 if (isset($_POST["entrega"])) {
     $_SESSION["cantidades"] = $_POST["cantidades"];
     $_SESSION["entrega"] = $_POST["entrega"];
@@ -12,7 +9,10 @@ if (isset($_POST["direccion"])) {
     $_SESSION["direccion"] = $_POST["direccion"];
 }
 
-
+if (!isset($_SESSION["entrega"])) {
+    header("Location: index.php");
+    exit;
+}
 
 function mostrarPedido()
 {
