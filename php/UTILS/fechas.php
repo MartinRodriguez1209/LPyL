@@ -38,7 +38,7 @@ function diaDeLaSemana()
 
 function numeroDiaSemana()
 {
-    return (int) date("N"); // 1=lunes, 7=domingo
+    return (int) date("N");
 }
 
 function antiguedad($fechaIngreso)

@@ -9,6 +9,7 @@ if (isset($_POST["RESET"])) {
 if (isset($_POST["comenzarJuego"])) {
     $_SESSION["turnos"] = 0;
     $nombre = $_POST["nombre"];
+    $_SESSION["nombre"] = $nombre;
     $cantidadSecuencia = $_POST["cantidadSecuencia"];
     $juego = true;
     $_SESSION["juego"] = true;
@@ -17,7 +18,7 @@ if (isset($_POST["comenzarJuego"])) {
     header("Location: http://localhost/miproyecto/simonDice/");
     exit;
 }
-
+$nombre = isset($_SESSION["nombre"]) ? $_SESSION["nombre"] : "desconocido";
 $cantidadSecuenciaRestante = $_SESSION["cantidadSecuenciaRestante"];
 $secuencia = isset($_SESSION["secuencia"]) ? $_SESSION["secuencia"] : [];
 $acierto = true;
@@ -88,7 +89,7 @@ if ($cantidadSecuenciaRestante > 0 && $acierto) {
 
 <body>
     <h2>Jugando a simon dice con: <?= $nombre ?></h2>
-    <h2>Color actual: <?= end($secuencia)["nombre"] ?></h2>
+    <h2>Color actual: <?= end($secuencia)["nombre"] ?> (<?= end($secuencia)["valor"] ?>)</h2>
     <h2>Colores restantes: <?= $cantidadSecuenciaRestante ?> </h2>
     <form action="juego.php" method="post">
         <label for="">Ingrese la secuencia separada por -

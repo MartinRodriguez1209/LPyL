@@ -1,4 +1,7 @@
 <?php
+
+
+
 function procesarLogin()
 {
     if (!isset($_POST["login"])) return;
@@ -20,8 +23,9 @@ function procesarCierreSesion()
     $_SESSION["logeado"] = false;
 }
 
-function formLogin($phpSelf)
+function formLogin()
 {
+    $phpSelf = $_SERVER['PHP_SELF'];
     return <<<html
     <div class="contenedor">
         <form method="post" action="$phpSelf">

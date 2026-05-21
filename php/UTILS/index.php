@@ -27,12 +27,12 @@ $primeraVez = !isset($_SESSION["primeraVez"]);
         <?= formRegistro($phpSelf) ?>
     <?php elseif ($logeado): ?>
         <h1>Bienvenido <?= $usuario["nombre"] ?></h1>
-        <!-- contenido logueado -->
+
         <form method="post" action="<?= $phpSelf ?>">
             <button type="submit" name="cerrarSesion">Cerrar sesion</button>
         </form>
     <?php else: ?>
-        <?= formLogin($phpSelf) ?>
+        <?= formLogin() ?>
     <?php endif; ?>
 </body>
 
