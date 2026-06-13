@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Consulta de Aeronaves por Modelo</h2>
+
+    <div class="fila-busqueda">
+      <label for="nombreReducido">Seleccione un modelo de aeronave:</label>
+      <input type="text" id="nombreReducido" onkeyup="buscarModelo()" />
+      <span id="estado"></span>
+    </div>
+    <div id="resultado" style="display: none">
+      <table>
+        <thead>
+          <tr>
+            <th>Matrícula</th>
+            <th>Ingreso a la flota</th>
+            <th>Capacidad</th>
+            <th>Distribución</th>
+          </tr>
+        </thead>
+        <tbody id="tablaAviones"></tbody>
+      </table>
+    </div>
+  </body>
+</html>

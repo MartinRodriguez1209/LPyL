@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Países y Ciudades</title>
+  </head>
+  <body>
+    <h2>Seleccione un pais</h2>
+    <select id="pais" onchange="buscarCiudades()">
+      <option value="">-- Seleccione --</option>
+      <option value="Argentina">Argentina</option>
+      <option value="Francia">Francia</option>
+      <option value="Brasil">Brasil</option>
+    </select>
+
+    <h3>Ciudades:</h3>
+    <div id="ciudades"></div>
+
+    <script>
+      function buscarCiudades() {
+        var pais = document.getElementById("pais").value;
+
+        if (pais == "") {
+          document.getElementById("ciudades").innerHTML = "";
+          return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var ciudades = JSON.parse(xhr.responseText);
+            var html = "<ul>";
+            for (var i = 0; i < ciudades.length; i++) {
+              html += "<li>" + ciudades[i] + "</li>";
+            }
+            html += "</ul>";
+            document.getElementById("ciudades").innerHTML = html;
+          }
+        };
+        xhr.open("GET", "ciudades.php?pais=" + pais, true);
+        xhr.send(null);
+      }
+    </script>
+  </body>
+</html>
