@@ -5,24 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <h1>Adivine la palabra!</h1>
-    <div id="idZonaAyuda">
-      <h3>Cantidad de letras:</h3>
-      <h3>Dificultad:</h3>
-      <h3>Cantidad de veces que fue adivinada:</h3>
-      <h3>Puntaje actual:</h3>
+    <button id="btnNuevaPartida">Nueva Partida</button>
+
+    <div id="idZonaAyuda" style="display: none">
+      <h3>Cantidad de letras: <span id="cantLetras"></span></h3>
+      <h3>Dificultad: <span id="dificultad"></span></h3>
+      <h3>Veces adivinada: <span id="vecesAdivinada"></span></h3>
+      <h3>Puntaje: <span id="puntaje">80</span></h3>
     </div>
-    <div id="idZonaPistas">
-      <button type="button">Obtener Pista</button>
+
+    <div id="idZonaPistas" style="display: none"></div>
+
+    <div id="idZonaControles" style="display: none">
+      <input type="text" id="inputPalabra" />
+      <button id="btnArriesgar">ARRIESGAR</button>
+      <button id="btnPista">Obtener Pista</button>
+      <button id="btnAbandonar">Abandonar partida</button>
     </div>
-    <div id="idZonaControles">
-      <label for=""
-        >Palabra: <input type="text" name="" id="" /><button type="button">
-          ARRIESGAR
-        </button></label
-      ><button type="button">Abandonar partida</button>
-    </div>
+
+    <div id="idZonaResultado" style="display: none"></div>
   </body>
 </html>
