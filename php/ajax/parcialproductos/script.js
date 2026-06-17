@@ -32,6 +32,22 @@ function detalleProducto() {
   console.log(producto);
   var detalleDiv = document.getElementById("idDetalleProducto");
   detalleDiv.style.display = "block";
+  document.getElementById("idNombre").innerText = producto.nombreProducto;
+  document.getElementById("idProveedor").innerText = producto.proveedor;
+  document.getElementById("idTotalStock").innerText = producto.totalStock;
+
+  var tablaStocks = document.getElementById("idTablaBody");
+  tablaStocks.innerHTML = "";
+  for (var sucursal in producto.stockSucursal) {
+    var tr = document.createElement("tr");
+    var tdSucursal = document.createElement("td");
+    tdSucursal.innerText = sucursal;
+    tr.appendChild(tdSucursal);
+    var tdStockActual = document.createElement("td");
+    tdStockActual.innerText = producto.stockSucursal[sucursal];
+    tr.appendChild(tdStockActual);
+    tablaStocks.appendChild(tr);
+  }
 }
 
 cargarProductos();
