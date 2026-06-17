@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <h1>Stock de productos</h1>
+    <div class="div_flex_center">
+      <span>
+        <p>Seleccione un producto</p>
+        <select name="seleccionProducot" id="idSeleccionProducto"></select>
+      </span>
+    </div>
+    <div id="idDetalleProducto" style="display: none">
+      <h3>Nombre del producto <span id="idNombre"></span></h3>
+      <h3>Proveedor<span id="idProveedor"></span></h3>
+      <h3>Total producto en stock <span id="idTotalStock"></span></h3>
+      <table id="idTabla">
+        <thead>
+          <tr>
+            <th>Sucursal</th>
+            <th>Stock actual</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </body>
+</html>
