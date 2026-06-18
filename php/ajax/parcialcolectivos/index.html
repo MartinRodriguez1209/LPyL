@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Ministerio de Transporte - Consulta de Servicios de Larga Distancia
+    </title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="cabecera">
+      <h1>MINISTERIO DE TRANSPORTE</h1>
+      <p class="subtitulo">Consulta de servicios de larga distancia</p>
+    </header>
+
+    <main class="contenedor">
+      <!-- Filtros de búsqueda -->
+      <section class="filtros" aria-label="Filtros de búsqueda">
+        <div class="campo-filtro">
+          <label for="selectorEmpresa">Empresa</label>
+          <select id="selectorEmpresa" name="empresa">
+            <option value="">-- Todas las empresas --</option>
+            <!-- Las opciones se cargan dinámicamente desde la base de datos -->
+          </select>
+        </div>
+
+        <div class="campo-filtro">
+          <label for="selectorDia">Día de la semana</label>
+          <select id="selectorDia" name="dia">
+            <option value="">-- Todos los días --</option>
+            <option value="LU">Lunes</option>
+            <option value="MA">Martes</option>
+            <option value="MI">Miércoles</option>
+            <option value="JU">Jueves</option>
+            <option value="VI">Viernes</option>
+            <option value="SA">Sábado</option>
+            <option value="DO">Domingo</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Listado de servicios -->
+      <section class="listado" aria-label="Listado de servicios">
+        <h2>Listado de servicios</h2>
+
+        <table id="tablaServicios">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ciudad origen</th>
+              <th>Ciudad destino</th>
+              <th>Hora salida</th>
+              <th>Hora llegada</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTablaServicios">
+            <!-- Las filas se generan dinámicamente -->
+          </tbody>
+        </table>
+
+        <p id="mensajeSinResultados" class="sin-resultados" hidden>
+          No se encontraron servicios para los filtros seleccionados.
+        </p>
+
+        <p class="total-servicios">
+          Total de servicios encontrados: <span id="totalServicios">0</span>
+        </p>
+      </section>
+    </main>
+
+    <!-- Ventana emergente con información del servicio -->
+    <div id="overlayModal" class="overlay" hidden>
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloModal"
+      >
+        <h2 id="tituloModal">Información del servicio</h2>
+
+        <dl class="detalle-servicio">
+          <dt>Días que opera:</dt>
+          <dd id="modalDiasOpera"></dd>
+
+          <dt>Asientos semicama:</dt>
+          <dd id="modalAsientosSemicama"></dd>
+
+          <dt>Precio pasaje semicama:</dt>
+          <dd id="modalPrecioSemicama"></dd>
+
+          <dt>Asientos cama:</dt>
+          <dd id="modalAsientosCama"></dd>
+
+          <dt>Precio pasaje cama:</dt>
+          <dd id="modalPrecioCama"></dd>
+
+          <dt>Sitio web de la empresa:</dt>
+          <dd>
+            <a
+              id="modalWebEmpresa"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Visitar sitio</a
+            >
+          </dd>
+        </dl>
+
+        <button id="btnAceptarModal" type="button" class="boton-aceptar">
+          Aceptar
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
