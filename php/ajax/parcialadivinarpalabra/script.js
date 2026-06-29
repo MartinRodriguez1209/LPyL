@@ -7,7 +7,7 @@ document.getElementById("btnAbandonar").addEventListener("click", abandonar);
 
 var puntajeInicial = 80;
 var pistasSolicitadas = 0;
-
+var puntajeActual = 80;
 function nuevaPartida() {
   pistasSolicitadas = 0;
   var xhr = new XMLHttpRequest();
@@ -27,6 +27,7 @@ function nuevaPartida() {
       document.getElementById("idZonaAyuda").style.display = "block";
       document.getElementById("idZonaPistas").style.display = "block";
       document.getElementById("idZonaControles").style.display = "block";
+      var puntajeActual = 80;
     }
   };
   xhr.open("POST", "palabra.php", true);
@@ -60,6 +61,8 @@ function pista() {
       pistaTag.innerText = pista;
       document.getElementById("idZonaPistas").appendChild(pistaTag);
       pistasSolicitadas++;
+      puntajeActual = puntajeActual - 15;
+      document.getElementById("puntaje").innerText = puntajeActual;
     }
   };
   xhr.open("POST", "palabra.php", true);
