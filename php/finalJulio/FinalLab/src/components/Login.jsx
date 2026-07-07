@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Button, Input } from "./ui";
 
-function Login({ onRegistro }) {
+import { loginApi } from "../../api/auth";
+
+function Login({ onRegistro, onLogin }) {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [recordarUsuario, setRecordarUsuario] = useState(false);
   const [error, setError] = useState("");
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(usuario + " " + password);
+    const data = await loginApi(usuario, password);
+    if (data.ok) onLogin(data.user);
+    else setError(data.mensaje);
   };
 
   return (
@@ -46,13 +50,13 @@ function Login({ onRegistro }) {
           </label>
           <Button type="submit">Iniciar sesion</Button>
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-          <Button
+          <button
             type="button"
             onClick={onRegistro}
-            className="text-sm text-blue-600 mt-3"
+            className="text-sm text-blue-600 mt-3 hover:underline"
           >
             ¿No tenés cuenta? Registrate
-          </Button>
+          </button>
         </form>
       </div>
     </div>

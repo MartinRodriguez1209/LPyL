@@ -1,5 +1,6 @@
 import { use, useState } from "react";
 import { Button, Input } from "./ui";
+import { registroApi } from "../../api/auth";
 
 function Registro({ onVolver }) {
   const [usuario, setUsuario] = useState("");
@@ -7,16 +8,16 @@ function Registro({ onVolver }) {
   const [mail, setMail] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
-
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
       setError("Las contraseñas no conciden!");
       return;
     }
-    setError("");
-    console.log(usuario, mail, password);
-  }
+    const data = await registroApi(usuario, mail, password);
+    if (data.ok) onVolver();
+    else setError(data.mensaje);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
