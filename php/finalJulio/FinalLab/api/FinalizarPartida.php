@@ -12,6 +12,11 @@ header('Content-Type: application/json');
 require_once 'Partida.php';
 session_start();
 
+if (!isset($_SESSION['partida'])) {
+    echo json_encode(['ok' => false, 'mensaje' => 'No hay una partida en curso']);
+    exit;
+}
+
 $partida = $_SESSION['partida'];
 
 Partida::guardar(

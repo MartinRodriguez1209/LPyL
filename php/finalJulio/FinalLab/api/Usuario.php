@@ -43,10 +43,18 @@ class Usuario implements JsonSerializable
             $stmt->execute();
             return ['ok' => true];
         } catch (Exception $e) {
+            if (str_contains($e->getMessage(), 'mail')) {
+                return ['ok' => false, 'mensaje' => "El mail ya está registrado"];
+            }
             return ['ok' => false, 'mensaje' => "El nombre de usuario ya existe"];
         }
     }
 
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function jsonSerialize(): mixed
     {

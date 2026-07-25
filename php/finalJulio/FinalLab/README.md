@@ -1,16 +1,21 @@
-# React + Vite
+# Adivine la Palabra
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Juego de adivinanza de palabras. Frontend en React (Vite) + Tailwind, backend en PHP orientado a objetos con MySQL.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- XAMPP (Apache + MySQL) corriendo en `localhost`
+- Node.js
 
-## React Compiler
+## Instalación
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+1. Importar `database/schema.sql` en MySQL (crea la base `final_juego_ahorcado` con sus tablas y palabras de ejemplo).
+2. Colocar la carpeta `api/` dentro de `htdocs` para que Apache la sirva.
+3. Instalar dependencias del frontend:
+   ```
+   npm install
+   ```
+4. Levantar el servidor de desarrollo:
+   ```
+   npm run dev
+   ```

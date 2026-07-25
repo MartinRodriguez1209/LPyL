@@ -1,8 +1,9 @@
 export async function loginApi(usuario, password) {
   const res = await fetch(
-    "http://localhost/miproyecto/finalJulio/FinalLab/api/login.php",
+    "http://localhost/miproyecto/finalJulio/FinalLab/api/Login.php",
     {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ usuario, password }),
     },
@@ -12,7 +13,7 @@ export async function loginApi(usuario, password) {
 
 export async function registroApi(usuario, mail, password) {
   const res = await fetch(
-    "http://localhost/miproyecto/finalJulio/FinalLab/api/registro.php",
+    "http://localhost/miproyecto/finalJulio/FinalLab/api/Registro.php",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

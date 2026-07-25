@@ -13,9 +13,14 @@ require_once 'Palabra.php';
 
 session_start();
 
+if (!isset($_SESSION['usuario_id'])) {
+    echo json_encode(['ok' => false, 'mensaje' => 'No hay sesión iniciada']);
+    exit;
+}
+
 $data = json_decode(file_get_contents('php://input'), true);
 $dificultad = $data['dificultad'];
-$usuarioId = $data['usuarioId'];
+$usuarioId = $_SESSION['usuario_id'];
 
 $resultado = Palabra::obtenerPalabra($dificultad);
 if (!$resultado['ok']) {

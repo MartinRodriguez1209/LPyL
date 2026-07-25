@@ -9,6 +9,11 @@ function App() {
   const [usuario, setUsuario] = useState(null);
   const [resultado, setResultado] = useState(null);
 
+  const handleLogout = () => {
+    setUsuario(null);
+    setPantalla("login");
+  };
+
   if (pantalla === "registro")
     return <Registro onVolver={() => setPantalla("login")} />;
   if (pantalla === "juego")
@@ -19,10 +24,17 @@ function App() {
           setResultado(resultado);
           setPantalla("resultado");
         }}
+        onLogout={handleLogout}
       />
     );
   if (pantalla === "resultado")
-    return <Resultado onNuevaPartida={() => setPantalla("juego")} />;
+    return (
+      <Resultado
+        resultado={resultado}
+        onNuevaPartida={() => setPantalla("juego")}
+        onLogout={handleLogout}
+      />
+    );
 
   return (
     <Login

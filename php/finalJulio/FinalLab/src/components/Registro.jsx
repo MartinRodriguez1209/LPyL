@@ -1,6 +1,7 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { Button, Input } from "./ui";
 import { registroApi } from "../../api/auth";
+import PatronLetras from "./PatronLetras";
 
 function Registro({ onVolver }) {
   const [usuario, setUsuario] = useState("");
@@ -20,8 +21,9 @@ function Registro({ onVolver }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-sm">
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center bg-gray-100">
+      <PatronLetras />
+      <div className="relative bg-white rounded-xl shadow-md p-8 w-full max-w-sm">
         <h2 className="text-xl font-bold">Crear cuenta</h2>
         <form onSubmit={handleSubmit}>
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -66,13 +68,13 @@ function Registro({ onVolver }) {
 
           <Button type="submit">Crear cuenta</Button>
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-          <Button
+          <button
             type="button"
             onClick={onVolver}
-            className="text-sm text-blue-600 mt-3"
+            className="text-sm text-blue-600 mt-3 hover:underline"
           >
             ¿Ya tienes cuenta? Inicia sesion
-          </Button>
+          </button>
         </form>
       </div>
     </div>

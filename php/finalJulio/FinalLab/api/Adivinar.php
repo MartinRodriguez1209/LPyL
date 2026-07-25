@@ -12,17 +12,53 @@ header('Content-Type: application/json');
 session_start();
 
 require_once 'Partida.php';
+
+function armarMascara($palabra, $descubiertas)
+{
+    $mascara = '';
+    for ($i = 0; $i < strlen($palabra); $i++) {
+        $mascara .= $descubiertas[$i] ? $palabra[$i] : '*';
+    }
+    return $mascara;
+}
+
+if (!isset($_SESSION['partida'])) {
+    echo json_encode(['ok' => false, 'mensaje' => 'No hay una partida en curso']);
+    exit;
+}
+
 $data = json_decode(file_get_contents('php://input'), true);
-$letra = $data['letra'];
+$letra = mb_strtolower($data['letra'], 'UTF-8');
 
 $partida = $_SESSION['partida'];
 $palabra = $partida['palabra'];
 $descubiertas = $partida['descubiertas'];
 
+// la letra no aporta nada si ya la arriesgaste, o si ya esta visible por una pista
+$yaVisible = false;
+for ($i = 0; $i < strlen($palabra); $i++) {
+    if (mb_strtolower($palabra[$i], 'UTF-8') === $letra && $descubiertas[$i]) {
+        $yaVisible = true;
+        break;
+    }
+}
+
+if ($yaVisible || in_array($letra, $partida['letras_arriesgadas'], true)) {
+    echo json_encode([
+        'ok' => true,
+        'yaArriesgada' => true,
+        'mascara' => armarMascara($palabra, $descubiertas),
+        'puntajeLetras' => $partida['puntaje_letras'],
+        'puntajePistas' => $partida['puntaje_pistas'],
+        'completada' => false,
+    ]);
+    exit;
+}
+
 // marcar todas las ocurrencias de la letra en la palabra
 $acerto = false;
 for ($i = 0; $i < strlen($palabra); $i++) {
-    if ($palabra[$i] === $letra) {
+    if (mb_strtolower($palabra[$i], 'UTF-8') === $letra) {
         $descubiertas[$i] = true;
         $acerto = true;
     }
@@ -52,10 +88,7 @@ $partida['descubiertas'] = $descubiertas;
 $_SESSION['partida'] = $partida;
 
 // armar la mascara para mostrar en pantalla (letra si esta descubierta, * si no)
-$mascara = '';
-for ($i = 0; $i < strlen($palabra); $i++) {
-    $mascara .= $descubiertas[$i] ? $palabra[$i] : '*';
-}
+$mascara = armarMascara($palabra, $descubiertas);
 
 $completada = !in_array(false, $descubiertas, true);
 
